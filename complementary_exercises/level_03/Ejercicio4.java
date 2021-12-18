@@ -1,46 +1,15 @@
 package complementary_exercises.level_03;
-import java.util.stream.*;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.List;
-
-/*
-Se dispone de una lista de Integer, de la cual queremos obtener otra lista aplicando la operación de factorial pero no se desean valores repetidos.
-
-Input (Entrada)
-List<Integer> palabras = List.of(1, 2, 4, 4, 4);
-
-(Salida):
-[1, 2, 24]
-
-*/
+import java.util.stream.Collectors;
 
 public class Ejercicio4 {
-
-    // factorial
-    static int factorial(int num){
-        int factorial=1;
-        while( num != 0){
-            factorial *= num;
-            num --;
-        }
-        return factorial;
+    public static void main(String [] args){
+        List<Integer> num = List.of(1, 2, 4, 4, 4);
+        List<Integer> listFactorial = num.stream().distinct().map(n -> factorial(n)).collect(Collectors.toList());
+        System.out.println(listFactorial);
     }
-
-    // filtro
-
-    static void filtro(List<Integer> palabras){
-        
-        Set<Integer> items = new HashSet<>();
-        palabras.stream()
-                .filter(n -> !items.add(factorial(n)))
-                .collect(Collectors.toSet());
-        System.out.println(items);
-            }
-
-    public static void main(String[] args){
-        List<Integer> palabras = List.of(1, 2, 4, 4, 4);
-        filtro(palabras);
+    public static int factorial(int n) {
+        if (n <= 1) return 1;
+        return n * factorial(n - 1);
     }
-
 }
